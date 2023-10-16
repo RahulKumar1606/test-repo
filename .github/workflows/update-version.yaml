@@ -1,9 +1,13 @@
 name: Update Version on Repository Dispatch
 
+# on:
+#   repository_dispatch:
+#     types:
+#       - update-version
 on:
-  repository_dispatch:
-    types:
-      - update-version
+  push:
+    branches:
+      - "main"
 
 jobs:
   update_version:
