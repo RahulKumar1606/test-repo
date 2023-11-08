@@ -12,6 +12,13 @@ on:
 
 
 jobs:
+  check-if-labeled:
+    if: ${{ GITHUB_EVENT_NAME == "workflow_run" }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deliberatly failing
+        run: abcdef
+
   build-image:
     runs-on: ubuntu-latest
     env:
