@@ -1,4 +1,4 @@
-name: Preflight
+name: pr-trigger
 
 on:
   pull_request:
