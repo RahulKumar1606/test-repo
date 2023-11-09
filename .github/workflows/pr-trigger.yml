@@ -22,4 +22,3 @@ jobs:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           repository: RahulKumar1606/test-repo
           event-type: test
-
