@@ -5,6 +5,7 @@ on:
     types:
       - labeled
 
+
 jobs:
 #  check-if-we-can-run:
 #    runs-on: ubuntu-latest
@@ -25,4 +26,4 @@ jobs:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           wait-for-completion: true
           display-workflow-run-url: true
-          workflow-logs: print
+          workflow-logs: print   
