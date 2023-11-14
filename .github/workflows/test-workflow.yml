@@ -19,7 +19,6 @@ jobs:
 
       - name: check if trigger by label
         run: |
-          dsadsa
           echo "Hello world"
           echo ${{github.event.action}}
           echo ${{github.event.label.name}}
