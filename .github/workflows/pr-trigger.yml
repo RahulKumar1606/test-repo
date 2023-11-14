@@ -22,7 +22,7 @@ jobs:
         with:
           sha: ${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: Second Job
+          name: build-image
           status: in_progress
 
       - name: Trigger test-workflow
@@ -41,7 +41,7 @@ jobs:
         with:
           sha: ${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: Second Job
+          name: build-image
           conclusion: ${{ job.status }}
           output: |
             {"summary":""}
