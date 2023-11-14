@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger test-workflow
+        id: trigger-test-workflow
         uses: aurelien-baudet/workflow-dispatch@v2.1.1
         with:
           repo: RahulKumar1606/test-repo
@@ -26,4 +27,21 @@ jobs:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           wait-for-completion: true
           display-workflow-run-url: true
-          workflow-logs: print   
+
+      - name: Display logs of triggered workflow
+#        if: steps.trigger-test-workflow.status == 'success'
+        uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const workflowRunId = context.outputs.workflowRunId;
+            github.actions.getWorkflowRunLogs({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: workflowRunId
+            }).then(response => {
+              const logs = response.data.jobs[0].logs;
+              console.log('Logs of triggered workflow:');
+              console.error(logs);
+            });
