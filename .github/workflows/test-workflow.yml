@@ -4,13 +4,7 @@ on:
   repository_dispatch:
     types: [ test ]
   workflow_dispatch:
-  # workflow_run:
-  #   workflows:
-  #     - pr-trigger
-  #   types:
-  #     - completed
   pull_request:
-
 
 jobs:
   build-image:
@@ -30,7 +24,7 @@ jobs:
           echo ${{github.event.action}}
           echo ${{github.event.label.name}}
 
-      - uses: LouisBrunner/checks-action@v1.3.1
+      - uses: LouisBrunner/checks-action@v1.6.2
         if: always()
         with:
           sha: ${{ github.sha }}
