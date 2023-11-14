@@ -19,7 +19,7 @@ jobs:
       - name: Trigger test-workflow
         uses: aurelien-baudet/workflow-dispatch@v2.1.1
         with:
-          repo: Rahul1606/test-repo
+          repo: RahulKumar1606/test-repo
           ref: ${{ github.event.pull_request.head.ref }}
           workflow: test-workflow.yml
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
