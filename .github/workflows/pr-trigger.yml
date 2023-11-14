@@ -29,7 +29,8 @@ jobs:
           display-workflow-run-url: true
 
       - name: Display logs of triggered workflow
-#        if: steps.trigger-test-workflow.status == 'success'
+        continue-on-error: true
+        #        if: steps.trigger-test-workflow.status == 'success'
         uses: actions/github-script@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
