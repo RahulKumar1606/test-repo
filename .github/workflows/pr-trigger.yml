@@ -24,3 +24,5 @@ jobs:
           workflow: test-workflow.yml
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           wait-for-completion: true
+          display-workflow-run-url: true
+          workflow-logs: print
