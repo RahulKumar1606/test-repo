@@ -29,3 +29,13 @@ jobs:
           echo "Hello world"
           echo ${{github.event.action}}
           echo ${{github.event.label.name}}
+
+      - uses: LouisBrunner/checks-action@v1.3.1
+        if: always()
+        with:
+          sha: ${{ github.sha }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          name: Second Job
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary":""}
