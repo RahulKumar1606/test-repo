@@ -1,7 +1,9 @@
 name: Test Workflow
 
 on:
- # workflow_run:
+  repository_dispatch:
+    types: [ test ]
+  # workflow_run:
  #   workflows:
  #     - pr-trigger
  #   types:
