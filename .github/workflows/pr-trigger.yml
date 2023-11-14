@@ -6,11 +6,20 @@ on:
       - labeled
 
 jobs:
-  check-if-we-can-run:
+#  check-if-we-can-run:
+#    runs-on: ubuntu-latest
+#    if: ${{github.event.action == 'labeled' && github.event.label.name == 'ci'}}
+#    steps:
+#      - name: Run on label
+#        run: |
+#          echo "Completed"
+  repo-dispatch:
     runs-on: ubuntu-latest
-    if: ${{github.event.action == 'labeled' && github.event.label.name == 'ci'}}
     steps:
-      - name: Run on label
-        run: |
-          echo "Completed"
-
+      - name: trigger test-workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          repository: RahulKumar1606/test-repo
+          event-type: test
+          client-payload: '{"github": ${{ toJson(github) }}}'
