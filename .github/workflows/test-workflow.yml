@@ -28,7 +28,7 @@ jobs:
         if: always()
         with:
           sha: ${{ github.sha }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_TOKEN }}
           name: Second Job
           conclusion: ${{ job.status }}
           output: |
