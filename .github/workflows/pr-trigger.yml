@@ -26,6 +26,7 @@ jobs:
           workflow: test-workflow.yml
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           wait-for-completion: true
+          wait-for-completion-interval: 10s
           display-workflow-run-url: true
 
       - name: Get Workflow Run ID
@@ -33,7 +34,7 @@ jobs:
         id: extract-id
         run: |
           # Extract the run ID from the workflow URL
-          workflow_url="${{ steps.trigger-test-workflow.outputs.workflow_run_url }}"
+          workflow_url="${{ steps.trigger-test-workflow.outputs.workflow-url }}"
           run_id=$(echo "$workflow_url" | awk -F'/' '{print $(NF)}')
           echo "{run_id}={$run_id}" >> $GITHUB_OUTPUT
 
