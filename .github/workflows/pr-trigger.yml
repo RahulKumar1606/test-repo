@@ -15,9 +15,10 @@ jobs:
           github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           script: |
             try {
-              const pullRequestNumber = context.payload.pull_request.number;
-              const commitSHA = context.payload.pull_request.head.sha;
-              const ref = `refs/pull/${pullRequestNumber}/merge/${commitSHA}`;
+#              const pullRequestNumber = context.payload.pull_request.number;
+#              const commitSHA = context.payload.pull_request.head.sha;
+#              const ref = `refs/pull/${pullRequestNumber}/merge/${commitSHA}`;
+              const ref = github.event.pull_request.head.ref;
               const response = await github.rest.actions.createWorkflowDispatch({
                 owner: 'RahulKumar1606',
                 repo: 'test-repo',
