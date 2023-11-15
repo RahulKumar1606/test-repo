@@ -32,3 +32,29 @@ jobs:
           conclusion: ${{ job.status }}
           output: |
             {"summary":""}
+
+  build-image2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+
+      - name: check if trigger by label
+        run: |
+          echo "Hello world"
+          echo ${{github.event.action}}
+          echo ${{github.event.label.name}}
+
+      - uses: LouisBrunner/checks-action@v1.6.2
+        if: always()
+        with:
+          sha: ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: build-image
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary":""}
