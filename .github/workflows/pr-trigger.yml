@@ -29,6 +29,7 @@ jobs:
           display-workflow-run-url: true
 
       - name: Get Workflow Run ID
+        if: always()
         id: extract-id
         run: |
           # Extract the run ID from the workflow URL
@@ -37,6 +38,7 @@ jobs:
           echo "::set-output name=run_id::$run_id"
 
       - name: Fetch Logs using Workflow Run ID
+        if: always()
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
