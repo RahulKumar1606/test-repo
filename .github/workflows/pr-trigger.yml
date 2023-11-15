@@ -22,27 +22,9 @@ jobs:
         uses: aurelien-baudet/workflow-dispatch@v2.1.1
         with:
           repo: RahulKumar1606/test-repo
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.ref }}
           workflow: test-workflow.yml
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           wait-for-completion: true
           wait-for-completion-interval: 10s
           display-workflow-run-url: true
-
-      - name: Get Workflow Run ID
-        if: always()
-        id: extract-id
-        run: |
-          # Extract the run ID from the workflow URL
-          workflow_url="${{ steps.trigger-test-workflow.outputs.workflow-url }}"
-          run_id=$(echo "$workflow_url" | cut -d '/' -f 8)
-          echo "run_id=${run_id}" >> $GITHUB_OUTPUT
-
-      - name: Fetch Logs using Workflow Run ID
-        if: always()
-        run: |
-          runId="${{ steps.extract-id.outputs.run_id }}"
-          token="${{ secrets.GITHUB_TOKEN }}"
-          api_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${runId}/logs"
-          logs=$(curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3.raw" "$api_url")
-          echo "$logs"
