@@ -3,21 +3,13 @@ name: Test Workflow
 on:
   repository_dispatch:
     types: [ test ]
-  # workflow_run:
- #   workflows:
- #     - pr-trigger
- #   types:
- #     - completed
+  workflow_dispatch:
   pull_request:
-
 
 jobs:
   build-image:
     runs-on: ubuntu-latest
-    env:
-      SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
     steps:
-
       - name: Check out the repo
         uses: actions/checkout@v2
         with:
@@ -27,5 +19,42 @@ jobs:
 
       - name: check if trigger by label
         run: |
+          echo "Hello world"
           echo ${{github.event.action}}
           echo ${{github.event.label.name}}
+
+      - uses: LouisBrunner/checks-action@v1.6.2
+        if: always()
+        with:
+          sha: ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: build-image
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary":""}
+
+  build-image2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+
+      - name: check if trigger by label
+        run: |
+          echo "Hello world"
+          echo ${{github.event.action}}
+          echo ${{github.event.label.name}}
+
+      - uses: LouisBrunner/checks-action@v1.6.2
+        if: always()
+        with:
+          sha: ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: build-image2
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary":""}
