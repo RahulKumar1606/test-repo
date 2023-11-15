@@ -15,7 +15,7 @@ jobs:
         with:
           github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           script: |
-            const { context, github } = require('@actions/github');
+            console.log(context);
             try {
               const ref = context.ref;
               const response = await github.rest.actions.createWorkflowDispatch({
