@@ -54,7 +54,7 @@ jobs:
         with:
           sha: ${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: build-image
+          name: build-image2
           conclusion: ${{ job.status }}
           output: |
             {"summary":""}
