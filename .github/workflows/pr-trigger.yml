@@ -17,7 +17,7 @@ jobs:
           script: |
             console.log(context);
             try {
-              const ref = context.ref;
+              const ref = context.sha;
               const response = await github.rest.actions.createWorkflowDispatch({
                 owner: 'RahulKumar1606',
                 repo: 'test-repo',
