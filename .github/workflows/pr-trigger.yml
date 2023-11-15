@@ -22,7 +22,7 @@ jobs:
         uses: aurelien-baudet/workflow-dispatch@v2.1.1
         with:
           repo: RahulKumar1606/test-repo
-          ref: ${{ github.sha }}
+#          ref: ${{ github.ref }}
           workflow: test-workflow.yml
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           wait-for-completion: true
