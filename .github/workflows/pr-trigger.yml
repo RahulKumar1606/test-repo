@@ -35,18 +35,13 @@ jobs:
           # Extract the run ID from the workflow URL
           workflow_url="${{ steps.trigger-test-workflow.outputs.workflow_run_url }}"
           run_id=$(echo "$workflow_url" | awk -F'/' '{print $(NF)}')
-          echo "::set-output name=run_id::$run_id"
+          echo "{run_id}={$run_id}" >> $GITHUB_OUTPUT
 
       - name: Fetch Logs using Workflow Run ID
         if: always()
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const runId = "${{ steps.extract-id.outputs.run_id }}";
-            const response = await github.actions.getWorkflowRunLogs({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: runId
-            });
-            console.log(response.data);
+        run: |
+          runId="${{ steps.extract-id.outputs.run_id }}"
+          token="${{ secrets.GITHUB_TOKEN }}"
+          api_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${runId}/logs"
+          logs=$(curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3.raw" "$api_url")
+          echo "$logs"
