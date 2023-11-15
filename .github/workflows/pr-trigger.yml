@@ -5,12 +5,24 @@ on:
     types:
       - labeled
 
-jobs:
-  check-if-we-can-run:
-    runs-on: ubuntu-latest
-    if: ${{github.event.action == 'labeled' && github.event.label.name == 'ci'}}
-    steps:
-      - name: Run on label
-        run: |
-          echo "Completed"
 
+jobs:
+  trigger_workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger test-workflow
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          script: |
+            try {
+              const response = await github.rest.actions.createWorkflowDispatch({
+                owner: 'RahulKumar1606',
+                repo: 'test-repo',
+                workflow_id: 'test-workflow.yml',
+                ref: github.context.ref
+              });
+              console.log('Workflow dispatch triggered:', response.status);
+            } catch (error) {
+              console.error('Error triggering workflow dispatch:', error.message);
+            }
