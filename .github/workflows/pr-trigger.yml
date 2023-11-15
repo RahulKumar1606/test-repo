@@ -15,12 +15,14 @@ jobs:
         with:
           github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           script: |
+            const { context, github } = require('@actions/github');
             try {
+              const ref = context.ref;
               const response = await github.rest.actions.createWorkflowDispatch({
                 owner: 'RahulKumar1606',
                 repo: 'test-repo',
                 workflow_id: 'test-workflow.yml',
-                ref: github.context.ref
+                ref: ref
               });
               console.log('Workflow dispatch triggered:', response.status);
             } catch (error) {
