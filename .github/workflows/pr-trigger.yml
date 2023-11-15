@@ -15,8 +15,7 @@ jobs:
           github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           script: |
             try {
-            console.log(github)
-              const ref = github.event.pull_request.head.ref;
+              const ref = context.payload.pull_request.head.ref;
               const response = await github.rest.actions.createWorkflowDispatch({
                 owner: 'RahulKumar1606',
                 repo: 'test-repo',
