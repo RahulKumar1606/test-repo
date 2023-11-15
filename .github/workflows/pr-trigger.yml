@@ -35,8 +35,8 @@ jobs:
         run: |
           # Extract the run ID from the workflow URL
           workflow_url="${{ steps.trigger-test-workflow.outputs.workflow-url }}"
-          run_id=$(echo "$workflow_url" | cut -d '/' -f 6)
-          echo "run_id=${run_id}" >> $GITHUB_ENV
+          run_id=$(echo "$workflow_url" | cut -d '/' -f 8)
+          echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
       - name: Fetch Logs using Workflow Run ID
         if: always()
